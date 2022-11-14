@@ -6,16 +6,6 @@ function App() {
   const[myData, setMyData]=useState([])
   const[isError,setIsError]=useState("")
 
-/* using promises */
-
-// useEffect(() => {
-//   axios.get("https://jsonplaceholder.typicode.com/posts")
-//   .then((res)=> setMyData(res.data))
-//   .catch((error)=>setIsError(error.message))
-// }, [])
-
-/* using async */
-
 const getApiData = async()=>{
   try{
   const res= await axios.get("/posts")
