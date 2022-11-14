@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import {useState, useEffect} from "react"
 import './App.css';
+import axios from "./axios"
 
 function App() {
+  const[myData, setMyData]=useState([])
+  const[isError,setIsError]=useState("")
+
+/* using promises */
+
+// useEffect(() => {
+//   axios.get("https://jsonplaceholder.typicode.com/posts")
+//   .then((res)=> setMyData(res.data))
+//   .catch((error)=>setIsError(error.message))
+// }, [])
+
+/* using async */
+
+const getApiData = async()=>{
+  try{
+  const res= await axios.get("/posts")
+  setMyData(res.data)
+  }
+  catch(error){
+    setIsError(error.message)
+  }
+}
+
+useEffect(()=>{
+  getApiData()
+},[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <h1>Axios</h1>
+    {isError != "" && <h2>{isError}</h2>}
+    <div className="grid">
+    {myData.slice(0,12).map((post)=>{
+      const {body ,id, title}=post
+      return(
+        <div className="card" key={id}>
+        <h2>{title.slice(0,8).toUpperCase()}</h2>
+        <p>{body.slice(0,70)}</p>
+        </div>
+      )
+    })}
+   
     </div>
+    </>
+    
   );
 }
 

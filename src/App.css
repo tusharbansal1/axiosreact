@@ -6,6 +6,16 @@
   height: 40vmin;
   pointer-events: none;
 }
+.card{
+  padding: 2px;
+  border: 1px solid black;
+}
+.grid{
+  display: grid;
+  max-width: 120rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.6rem;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
